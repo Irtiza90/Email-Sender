@@ -46,6 +46,7 @@ async def start_sending(config: dict[str, str | int | bool], email_data: dict[st
         key: config[key] for key in ("hostname", "use_tls", "username", "password")
     })
 
+
     # Creating the messages
     coroutines = []
 
@@ -65,9 +66,11 @@ async def start_sending(config: dict[str, str | int | bool], email_data: dict[st
             cor = send_mail(client, recipients=creds["to"], msg=message, timeout=config["timeout"])
             coroutines.append(cor)
 
+
     if len(coroutines) == 0:
         print("[INFO]: No Messages Sent")
         return
+    
     
     # Connecting
     await client.connect(timeout=100)
@@ -83,10 +86,12 @@ def main():
     with open("config.json") as conf:
         CONFIG: dict[str, str | bool] = json.load(conf)
 
+
     SENDER: str = CONFIG["sender"]
     CONFIG["username"] = SENDER
     send_from_f: str = CONFIG.pop("file")
     
+
     with open(send_from_f) as jsonf:
         try:
             json_data: list[dict[str, list[str] | str]] = json.load(jsonf)
@@ -95,9 +100,10 @@ def main():
             json_data = []
             print(f'[ERROR]: Could not Load JSON file "{send_from_f}"')
 
+
     with open(".log", "w") as sys.stdout: # overrides every print statement to write to the .log file
         asyncio.run(start_sending(CONFIG, json_data))
 
-        
+
 if __name__ == "__main__":
     main()
