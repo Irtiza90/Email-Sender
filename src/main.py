@@ -17,9 +17,6 @@ async def send_mail(client: aiosmtplib.SMTP, recipients: list[str] | str, msg: M
     except Exception as exc:
         print(f"[ERROR]: Sending Messages To {recipients}\nError: {exc}")
 
-    else:
-        print(f"[SUCCESS]: Messages sent to {recipients}")
-
 
 def create_message(sender: str, subject: str, message: str) -> MIMEMultipart:
     msg = MIMEMultipart()
