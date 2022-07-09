@@ -46,7 +46,6 @@ async def start_sending(config: dict[str, str | int | bool], email_data: dict[st
         key: config[key] for key in ("hostname", "use_tls", "username", "password")
     })
 
-
     # Creating the messages
     coroutines = []
 
@@ -55,7 +54,7 @@ async def start_sending(config: dict[str, str | int | bool], email_data: dict[st
             message = create_message(
                 sender=config["username"], subject=creds["subject"], message=creds["msg"]
             )
-        
+            
         except FileNotFoundError:
             fp = creds["msg"].split(":FILE:")[1].strip()
             print(
@@ -71,7 +70,6 @@ async def start_sending(config: dict[str, str | int | bool], email_data: dict[st
         print("[INFO]: No Messages Sent")
         return
     
-    
     # Connecting
     await client.connect(timeout=100)
 
@@ -86,12 +84,10 @@ def main():
     with open("config.json") as conf:
         CONFIG: dict[str, str | bool] = json.load(conf)
 
-
     SENDER: str = CONFIG["sender"]
     CONFIG["username"] = SENDER
     send_from_f: str = CONFIG.pop("file")
     
-
     with open(send_from_f) as jsonf:
         try:
             json_data: list[dict[str, list[str] | str]] = json.load(jsonf)
@@ -99,7 +95,6 @@ def main():
         except json.decoder.JSONDecodeError:
             json_data = []
             print(f'[ERROR]: Could not Load JSON file "{send_from_f}"')
-
 
     with open(".log", "w") as sys.stdout: # overrides every print statement to write to the .log file
         asyncio.run(start_sending(CONFIG, json_data))
