@@ -76,5 +76,7 @@ The message can be sent to multiple people by adding more accounts in the `to` l
 
 Create a new dict to send different messages to different people
 <hr>
+
 Then Run main.py to send the emails
+
 All The logging informattion will be written to the file `.log`
