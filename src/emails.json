@@ -1,0 +1,7 @@
+[
+    {
+        "to": ["person1@gmail.com", "person2@gmail.com", "person3@gmail.com"],
+        "subject": "Testing",
+        "msg": "Hello, Hello Testing... Testing 123.. 123"
+    }
+]

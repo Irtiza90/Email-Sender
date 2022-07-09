@@ -1,0 +1,8 @@
+{
+    "file": "emails.json",
+    "hostname": "smtp.gmail.com",
+    "sender": "example@gmail.com",
+    "password": "password",
+    "timeout": 120,
+    "use_tls": true
+}
